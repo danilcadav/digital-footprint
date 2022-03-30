@@ -163,7 +163,7 @@ x_taiga.sort()
             HTML-страницы
                     и графиков:"""
 
-temp = open('template.html').read()
+temp = open('/home/prsem/damolchanov/damolchanov/template.html').read()
 template = Template(temp)
 
 fig_zulip = px.bar(x = x_zulip, y = y_zulip, 
