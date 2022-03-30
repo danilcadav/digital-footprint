@@ -180,7 +180,7 @@ fig_git1 = px.line(x = x_git, y = y1_git,
                    labels = dict(x = "Дата", y = "Общее кол-во коммитов"))
 fig_tai = px.line(x = x_taiga, y =y1_taiga,
                   labels = dict(x = "Дата", y = "Общее кол-во задач"))
-with open('index.html', 'w') as fh:
+with open('/var/www/html/students/damolchanov/damolchanov.html', 'w') as fh:
     fh.write(template.render(fullname = "Молчанов Данил Андреевич",
                              datetime = my_date.isoformat(), 
                              group = "БИВ 213", 
