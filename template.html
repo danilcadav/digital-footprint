@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+	    <meta charset="UTF-8">
+	    <title>Проектный сем</title>
+	<span style="font-family: Lucida Sans Unicode;"></head>
+	<body bgcolor = "#0A3D57">
+	<font color="#F59584"><font size = 4.5><div align="center"><i><h2>Анализ данных для проектного семинара</h2></i></div>
+	<section>
+		<h3>Фио</h3>
+		<span>{{fullname}}</span>
+		<h3>Группа</h3>
+		<span> {{group}} </span>
+		<h3>Дата и время генерации скрипта</h3>
+		{{datetime}}
+		<h3>Раздел с данными по сервисам</h3>
+		<ul>
+		<li>
+		<article><h3>Gitlab</h3></article>
+		•Количество коммитов в репозитории проекта:{{gitCount}}
+		{{git}}
+		{{git1}}
+		</li>
+		</ul>
+		<ul>
+		<li>
+		<article><h3>Taiga</h3></article>
+		•Общее количество пользовательских историй в эпике:{{taigaStoryCount}}
+		<br>•Общее количество задач в пользовательских историй в эпике:{{taigaTasksCount}}</br>
+		{{tai}}
+		</li>
+		</ul>
+		<ul>
+		<li>
+		<article><h3>Jitsi</h3></article>
+		•Количество посещённых занятий: {{jitsiCount}}
+		<br>•Список посещённых комнат: {{jitsiRooms}}
+		{{jit}}
+		{{jit1}}
+		</li>
+		</ul>
+		<ul>
+		<li>
+		<article><h3>Zulip</h3></article>
+		•Количество сообщений: {{zulipMessages}}
+		<br>•Список каналов: {{zulipChannels}}</br>
+		{{zul}}
+		{{zul1}}
+	 	   </li>
+		</ul></span>
+	</section></font></font>
+	</body>
+</html>
