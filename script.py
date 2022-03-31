@@ -10,9 +10,8 @@ def daysToWeeks(x, weeks):
         for j in weeks:
             daycurrent = int(i[8:])
             dayweek = int(j[8:])
-            if i[5:7] == j[5:7] and abs(daycurrent - dayweek) < 7:
+            if i[5:7] == j[5:7] and abs(daycurrent - dayweek) < 3.5:
                 xn.append(j)
-    xn = set(xn)
     return xn
 
 my_date = datetime.now()
@@ -26,10 +25,10 @@ weeks = {"2022-01-03","2022-01-10","2022-01-17","2022-01-24","2022-01-31",
          "2022-02-07","2022-02-14","2022-02-21","2022-02-28",
          "2022-03-07","2022-03-14","2022-03-21","2022-03-28"}
 
-respGit = rqst.post("http://94.79.54.21:3000/api/git/getData",
+respGit = rqst.post("http://94.79.54.21:3000/api/git/getDataPerWeek",
                         json = {
                             "studEmail": emails[1],
-                            "beginDate": "2022-01-01",
+                            "beginDate": "2022-01-03",
                             "endDate": str(my_date)[:10],
                             "timeRange": 1,
                             "hideMerge": True,
@@ -51,9 +50,9 @@ y1_git = y_git.copy()
 for i in range(0, len(y1_git)):
     for j in range(0,i):
         y1_git[i] = y1_git[i] + y_git[j]
-
-x_git = list(daysToWeeks(x_git, weeks))
+x_git = list(x_git)
 x_git.sort()
+
 """Всё, 
     что 
         связано 
@@ -68,11 +67,9 @@ respZulip = rqst.post("http://94.79.54.21:3000/api/zulip/getData",
                             "token": token }).json()
 zulipMessages = len(respZulip['messages'])
 
-zulipChannels = {}
+zulipChannels = set()
 x_zulip = set()
 y_zulip = np.zeros(1)
-
-zulipChannels = set(zulipChannels)
 
 for channel in respZulip['messages']:
     zulipChannels.add(channel['name'])
@@ -97,13 +94,13 @@ x_jitsi = set()
 y_jitsi = np.zeros(1)
 jitsiCount = 0
 
-jitsiRooms = {}
-jitsiRooms = set(jitsiRooms)
+jitsiRooms = set()
 
 for i in emails:
     respJitsi = rqst.post("http://94.79.54.21:3000/api/jitsi/sessions",
                             json = {
                                 "studEmail": i,
+                                "beginDate": "2022-01-03",
                                 "endDate": str(my_date)[:10],
                                 "token": token }).json()
     
@@ -120,8 +117,9 @@ for i in emails:
         for j in range(0, i):
             y1_jitsi[i] = y1_jitsi[i] + y_jitsi[j]
 
-x_jitsi = list(x_jitsi)
+x_jitsi = list(daysToWeeks(x_jitsi, weeks))
 x_jitsi.sort()
+
 """Всё, 
     что 
         связано 
@@ -130,7 +128,6 @@ x_jitsi.sort()
 respTaiga = rqst.get("https://track.miem.hse.ru/api/v1/userstories",
                      headers = {"x-disable-pagination": "True"}).json()
 taigaStoryCount = 0
-taigaTasksCount = 0
 
 for i in respTaiga:
     if type(i['assigned_to_extra_info']) != type(None):
@@ -157,8 +154,6 @@ for i in range(0, len(y1_taiga)):
     for j in range(0, i):
         y1_taiga[i] = y1_taiga[i] + y_taiga[j]
 
-x_taiga = list(daysToWeeks(x_taiga, weeks))
-x_taiga.sort()
 """Генерация
             HTML-страницы
                     и графиков:"""
